@@ -11,7 +11,8 @@ public class Book {
     private Long id;
     private String title;
     private String isbn;
-    private String publisher;
+    @OneToOne
+    private Publisher publisher;
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
@@ -20,14 +21,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, String isbn, String publisher) {
-        this.id = id;
+    public Book(String title, String isbn, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
     }
 
-    public Book(Long id, String title, String isbn, String publisher, Set<Author> authors) {
+    public Book(Long id, String title, String isbn, Publisher publisher, Set<Author> authors) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
@@ -59,11 +59,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
@@ -88,14 +88,5 @@ public class Book {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", authors=" + authors +
-                '}';
-    }
+
 }
